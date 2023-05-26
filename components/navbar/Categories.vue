@@ -21,6 +21,16 @@ const categories = [
         description: 'This property has a pool!'
     },
     {
+        label: 'OMG!',
+        icon: 'solar:ufo-outline',
+        description: 'This property has a pool!'
+    },
+    {
+        label: 'Bed and breakfast!',
+        icon: 'ph:coffee',
+        description: 'This property has a pool!'
+    },
+    {
         label: 'Trending',
         icon: 'mingcute:fire-line',
         description: 'This property has camping'
@@ -66,18 +76,28 @@ const categories = [
         description: 'This property has camping'
     },
     {
-        label: "Chef's Kitchen",
-        icon: 'tabler:chef-hat',
-        description: 'This property has camping'
-    },
-    {
-        label: "Desart",
+        label: "Desert",
         icon: 'ph:cactus',
         description: 'This property has camping'
     },
     {
         label: "Container",
         icon: 'clarity:container-line',
+        description: 'This property has camping'
+    },
+    {
+        label: "Golfing",
+        icon: 'ic:baseline-sports-golf',
+        description: 'This property has camping'
+    },
+    {
+        label: "Chef's Kitchen",
+        icon: 'tabler:chef-hat',
+        description: 'This property has camping'
+    },
+    {
+        label: "Campers",
+        icon: 'tabler:camper',
         description: 'This property has camping'
     },
 ]

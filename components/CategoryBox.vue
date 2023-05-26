@@ -52,7 +52,7 @@ if(router.currentRoute.value.query.category == undefined && props.label=='Rooms'
       router.currentRoute.value.query.category == label || a  ? 'border-b-neutral-800' : 'border-transparent',
       router.currentRoute.value.query.category == label || a  ? 'text-neutral-800' : 'text-neutral-500'
     ]">
-        <Icon :name="icon" style="font-size: 26;"  />
+        <Icon :name="icon" style="font-size: 26;" />
         <div class="font-light text-sm">
             {{ label }}
         </div>
