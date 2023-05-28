@@ -37,23 +37,25 @@ if(router.currentRoute.value.query.category == undefined && props.label=='Rooms'
 </script>
 
 <template>
-    <div @click="addCategoryParam(label)" class="flex flex-col items-center justify-center gap-2 p-3 border-b-2 hover:border-neutral-400 hover:text-neutral-800 transition cursor-pointer" 
+    <div @click="addCategoryParam(label)"
     :class="[
+      'category',
       'flex',
       'flex-col',
       'items-center',
       'justify-center',
       'gap-2',
-      'p-3',
+      'py-3.5',
       'border-b-2',
-      'hover:text-neutral-800',
+      'hover:text-neutral-900',
+      'hover:border-b-neutral-400',
       'transition',
-      'cursor-pointer',
+      router.currentRoute.value.query.category == label || a ? 'cursor-default': 'cursor-pointer',
       router.currentRoute.value.query.category == label || a  ? 'border-b-neutral-800' : 'border-transparent',
       router.currentRoute.value.query.category == label || a  ? 'text-neutral-800' : 'text-neutral-500'
     ]">
         <Icon :name="icon" style="font-size: 26;" />
-        <div class="font-light text-sm">
+        <div class="category-text font-light text-sm whitespace-nowrap">
             {{ label }}
         </div>
     </div>

@@ -33,6 +33,16 @@
                             src="https://a0.muscache.com/im/pictures/8a6d1edc-466b-4148-8c7a-5f5b396ec224.jpg?im_w=720"
                             class="object-cover h-full w-full" />
                     </SwiperSlide>
+                    <SwiperSlide class="h-full w-200px" style="min-height: 300px;">
+                        <img alt="listing"
+                            src="https://a0.muscache.com/im/pictures/miso/Hosting-811113927948467981/original/b4c75269-f558-4b11-a527-e49841566523.jpeg?im_w=720"
+                            class="object-cover h-full w-full" />
+                    </SwiperSlide>
+                    <SwiperSlide class="h-full w-200px" style="min-height: 300px;">
+                        <img alt="listing"
+                            src="https://a0.muscache.com/im/pictures/miso/Hosting-811113927948467981/original/8fbe90d3-3029-47db-8b02-690b158581c5.jpeg?im_w=720"
+                            class="object-cover h-full w-full" />
+                    </SwiperSlide>
                 </Swiper>
                 <!-- end Swiper -->
                 <div class="absolute top-3 right-3 z-10">
@@ -71,7 +81,6 @@
 
 .swiper-button-disabled {
     display: none;
-    color: white;
 }
 
 

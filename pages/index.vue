@@ -1,5 +1,5 @@
 <template>
-  <div class="pt-52">
+  <div class="pt-48">
     <Container>
       <TaxesCard/>
       <div v-if="isEmpty">

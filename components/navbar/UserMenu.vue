@@ -1,7 +1,7 @@
 <template>
     <div class="relative">
         <div class="flex flex-row items-center gap-0">
-            <div @click="()=> {}" class="hidden md:block text-sm font-medium py-3 px-4 rounded-full hover:bg-neutral-100 transition cursor-pointer">
+            <div @click="()=> {}" class="hidden md:block text-sm mr-[-10px] font-semibold py-3 px-4 rounded-full hover:bg-neutral-100 transition cursor-pointer">
                 Airbnb your home 
             </div>
             <div @click="()=> {}" class="hidden md:block text-sm font-medium py-3 px-4 rounded-full hover:bg-neutral-100 transition cursor-pointer">

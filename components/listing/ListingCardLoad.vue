@@ -1,5 +1,5 @@
 <template>
-    <div class="col-span-1 cursor-pointer group">
+    <div class="col-span-1 group">
         <div class=" flex flex-col w-full animate-pulse">
             <div class="aspect-square w-full relative overflow-hidden rounded-xl">
                 <div class="h-full w-full bg-gray-200 rounded-sm dark:bg-gray-700"></div>
