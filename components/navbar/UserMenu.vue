@@ -14,12 +14,19 @@
                 </div>
             </div>
         </div>
-        <div v-if="isOpen" class="absolute rounded-xl shadow-md w-[40vw] md:w-3/4 bg-white overflow-hidden right-0 top-12 text-sm">
+        <div v-if="isOpen" class="absolute z-50 rounded-xl drop-shadow-2xl w-[40vw] md:w-3/4 bg-white overflow-hidden right-0 top-12 text-sm">
             <div class="flex flex-col cursor-pointer">
                 <MenuItem :onClick="()=>{}" label="Sign up"/>
             </div>
             <div class="flex flex-col cursor-pointer">
                 <MenuItem :onClick="()=>{}" label="Login"/>
+            </div>
+            <hr>
+            <div class="flex flex-col cursor-pointer">
+                <MenuItem :onClick="()=>{}" label="Airbnb your home"/>
+            </div>
+            <div class="flex flex-col cursor-pointer">
+                <MenuItem :onClick="()=>{}" label="Help"/>
             </div>
         </div>
         

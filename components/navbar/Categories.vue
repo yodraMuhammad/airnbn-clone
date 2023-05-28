@@ -106,57 +106,91 @@ const categories = [
 <template>
     <Container>
         <div class="pt-4 flex flex-row items-center w-full">
-            <div ref="scrollableContainer" class="flex overflow-x-scroll whitespace-nowrap gap-10 w-full" >
-                <CategoryBox v-for="item in categories" :key="item.label" :icon="item.icon" :label="item.label" :description="item.description"  />
+            <div ref="scrollContainer" class="flex overflow-x-scroll whitespace-nowrap gap-10 w-full"
+                @scroll="handleScroll">
+                <CategoryBox v-for="item in categories" :key="item.label" :icon="item.icon" :label="item.label"
+                    :description="item.description" />
+                <div class="absolute inset-y-0 right-0 bg-gradient-to-r from-transparent to-white w-8 pointer-events-none"></div>
             </div>
-                <div @click="scrollRight" class="mr-4 border-neutral-400 cursor-pointer toggle-dot my-[2px] mx-[1px] border-[1px] w-7 h-7 bg-white rounded-full inset-y-0 right-0">
+            <client-only>
+                <div v-show="showButton2" @click="scrollLeft"
+                    class="absolute border-neutral-400 cursor-pointer border-[1px] w-7 h-7 p-0 bg-white rounded-full hover:drop-shadow-xl">
+                    <div class="text-center">
+                        <Icon name="ph:caret-left-bold" style="font-size: 14;" />
+                    </div>
+                </div>
+            </client-only>
+            <client-only>
+                <div @click="scrollRight" v-show="showButton"
+                    class="absolute border-neutral-400 cursor-pointer right-48 border-[1px] w-7 h-7 p-0 bg-white rounded-full transition-shadow hover:drop-shadow-xl">
                     <div class="text-center">
                         <Icon name="ph:caret-right-bold" style="font-size: 14;" />
                     </div>
                 </div>
-                <div class="flex flex-row gap-2 items-center min-w-fit cursor-pointer h-6 pl-3 pr-4 py-6 border border-gray-300 rounded-2xl">
-                    <Icon name="mi:filter" style="font-size: 18;" />
-                    <div class="text-neutral-950 text-sm font-medium">
-                        Filters
-                    </div>
+            </client-only>
+            <div
+                class="flex flex-row gap-2 items-center min-w-fit cursor-pointer ml-8 h-6 pl-3 pr-4 py-6 border border-gray-300 rounded-2xl">
+                <Icon name="mi:filter" style="font-size: 18;" />
+                <div class="text-neutral-950 text-sm font-medium">
+                    Filters
                 </div>
+            </div>
         </div>
     </Container>
 </template>
 
 <script>
 export default {
-  methods: {
-    scrollRight() {
-      const container = this.$refs.scrollableContainer;
-      container.scrollBy({
-        top: 0,
-        left: 100,
-        behavior: 'smooth'
-      });
+    data() {
+        return {
+            showButton: false,
+            showButton2: false
+        };
+    },
+    methods: {
+        scrollRight() {
+            const container = this.$refs.scrollContainer;
+            container.scrollBy({
+                top: 0,
+                left: 120,
+                behavior: 'smooth'
+            });
+        },
+        handleScroll() {
+            const scrollContainer = this.$refs.scrollContainer;
+            if (scrollContainer.scrollLeft < scrollContainer.scrollWidth - scrollContainer.clientWidth) {
+                this.showButton = true;
+            } else {
+                this.showButton = false;
+            }
+
+            if (scrollContainer.scrollLeft > 0) {
+                this.showButton2 = true;
+            } else {
+                this.showButton2 = false;
+            }
+        },
+        scrollToRight() {
+            const scrollContainer = this.$refs.scrollContainer;
+            scrollContainer.scrollBy({
+                left: scrollContainer.clientWidth,
+                behavior: 'smooth'
+            });
+        },
+        scrollToLeft() {
+            const scrollContainer = this.$refs.scrollContainer;
+            // Logika untuk melakukan scroll ke kiri
+            scrollContainer.scrollBy({
+                left: -scrollContainer.clientWidth,
+                behavior: 'smooth'
+            });
+        }
     }
-  }
 }
 </script>
 
 <style>
-/* Mengatur tampilan scrollbar horizontal */
 ::-webkit-scrollbar {
-  height: 0px; /* Tinggi scrollbar */
-}
-
-/* Track (jalur) scrollbar horizontal */
-::-webkit-scrollbar-track {
-  background: #f1f1f1; /* Warna latar belakang track */
-}
-
-/* Thumb (pegangan) scrollbar horizontal */
-::-webkit-scrollbar-thumb {
-  background: #888; /* Warna pegangan */
-}
-
-/* Ketika thumb scrollbar dihover */
-::-webkit-scrollbar-thumb:hover {
-  background: #555; /* Warna pegangan saat dihover */
+    height: 0px;
 }
 </style>

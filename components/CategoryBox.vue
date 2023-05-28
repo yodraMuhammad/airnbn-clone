@@ -45,17 +45,17 @@ if(router.currentRoute.value.query.category == undefined && props.label=='Rooms'
       'items-center',
       'justify-center',
       'gap-2',
-      'py-3.5',
+      'py-3',
       'border-b-2',
       'hover:text-neutral-900',
       'hover:border-b-neutral-400',
       'transition',
       router.currentRoute.value.query.category == label || a ? 'cursor-default': 'cursor-pointer',
       router.currentRoute.value.query.category == label || a  ? 'border-b-neutral-800' : 'border-transparent',
-      router.currentRoute.value.query.category == label || a  ? 'text-neutral-800' : 'text-neutral-500'
+      router.currentRoute.value.query.category == label || a  ? 'text-neutral-800' : 'text-neutral-600'
     ]">
         <Icon :name="icon" style="font-size: 26;" />
-        <div class="category-text font-light text-sm whitespace-nowrap">
+        <div class="category-text font-normal text-sm whitespace-nowrap">
             {{ label }}
         </div>
     </div>
