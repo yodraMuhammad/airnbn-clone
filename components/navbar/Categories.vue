@@ -143,7 +143,7 @@ const categories = [
 export default {
     data() {
         return {
-            showButton: false,
+            showButton: true,
             showButton2: false
         };
     },
