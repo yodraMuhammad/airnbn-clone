@@ -5,7 +5,9 @@ const { data: count } = await useFetch('https://dummyjson.com/products')
 <template>
     <Suspense v-for="(item, index) in count.products" :key="index">
         <template #default>
-            <ListingCard :id="item.id"/>
+            <NuxtLink :to="'/ListingPage'">
+                <ListingCard :id="item.id"/>
+            </NuxtLink>
         </template>
         <template #fallback>
             <ListingCardLoad/>

@@ -39,18 +39,21 @@ console.log(props.id);
                 </div>
             </div>
             <div class="flex flex-row items-center justify-between mt-2">
-                <div class="font-semibold text-lg">Sidemen,Indonesia</div>
+                <div class="font-semibold text-lg">{{ posts.title }}</div>
                 <div class="flex items-center gap-1">
                     <Icon name="ic:baseline-star" style="font-size: 15;" />
-                    <div>4.92</div>
+                    <div>{{ posts.rating }}</div>
                 </div>
             </div>
             <div class="font-light text-neutral-500">
-                983 kilometers away <br />Oct 19 -24
+                <div class="truncate">
+                    {{posts.description}}
+                </div> 
+                {{ posts.brand }} - {{ posts.category }}
             </div>
             <div class="flex flex-row items-center gap-1 mt-1">
-                <div class="font-semibold">Rp7,783,019</div>
-                <div class="font-light">night</div>
+                <div class="font-semibold">USD {{ posts.price }}</div>
+                <!-- <div class="font-light">night</div> -->
             </div>
         </div>
     </div>
