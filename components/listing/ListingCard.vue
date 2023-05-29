@@ -39,20 +39,20 @@ console.log(props.id);
                 </div>
             </div>
             <div class="flex flex-row items-center justify-between mt-2">
-                <div class="font-semibold text-lg">{{ posts.title }}</div>
+                <div class="font-semibold text-lg truncate">{{ posts.title }}</div>
                 <div class="flex items-center gap-1">
                     <Icon name="ic:baseline-star" style="font-size: 15;" />
                     <div>{{ posts.rating }}</div>
                 </div>
             </div>
             <div class="font-light text-neutral-500">
+                {{ posts.brand }} - {{ posts.category }}
                 <div class="truncate">
                     {{posts.description}}
                 </div> 
-                {{ posts.brand }} - {{ posts.category }}
             </div>
             <div class="flex flex-row items-center gap-1 mt-1">
-                <div class="font-semibold">USD {{ posts.price }}</div>
+                <div class="font-semibold">${{ posts.price }}</div>
                 <!-- <div class="font-light">night</div> -->
             </div>
         </div>
