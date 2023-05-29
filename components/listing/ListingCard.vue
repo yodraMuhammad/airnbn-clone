@@ -2,16 +2,15 @@
 const props = defineProps({
     id: Number
 })
-const { data: posts } = useFetch('https://dummyjson.com/products/'+props.id, {lazy: true,server: false})
-// const gambar = await posts._rawValue.images 
-// console.log(props.id);
-console.log(posts._rawValue);
+const { data: posts } = await useFetch('https://dummyjson.com/products/'+props.id)
+
+console.log(posts);
+console.log(props.id);
 
 </script>
 <template>
     <div class="col-span-1 cursor-pointer group">
         <div class=" flex flex-col w-full">
-            div
             <div class="aspect-square w-full relative overflow-hidden rounded-xl">
                 <!-- Swiper -->
                 <Swiper class="h-full w-full"
@@ -28,7 +27,7 @@ console.log(posts._rawValue);
                             translate: ['100%', 0, 0],
                         },
                     }">
-                    <SwiperSlide class="h-full w-200px" style="min-height: 300px;" v-for="(image, index) in gambar" :key="index">
+                    <SwiperSlide class="h-full w-200px" style="min-height: 300px;" v-for="(image, index) in posts.images" :key="index">
                         <img alt="listing"
                             :src="image"
                             class="object-cover h-full w-full" />
@@ -56,7 +55,6 @@ console.log(posts._rawValue);
         </div>
     </div>
 </template>
-
 
 <style>
 .swiper-button-next {

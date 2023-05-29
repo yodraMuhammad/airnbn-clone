@@ -1,13 +1,11 @@
 <script setup>
-// const { data: count } = await useFetch('https://dummyjson.com/products')
-// console.log(count._rawValue.products);
-// data = count._rawValue.products
+const { data: count } = await useFetch('https://dummyjson.com/products')
 </script>
 
 <template>
-    <Suspense v-for="(item, index) in 39" :key="index">
+    <Suspense v-for="(item, index) in count.products" :key="index">
         <template #default>
-            <ListingCard :id="item"/>
+            <ListingCard :id="item.id"/>
         </template>
         <template #fallback>
             <ListingCardLoad/>
