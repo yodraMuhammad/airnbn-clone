@@ -2,16 +2,14 @@
 const props = defineProps({
     id: Number
 })
-const { data: posts } = useFetch('https://dummyjson.com/products/'+props.id, {lazy: true,server: false})
-// const gambar = await posts._rawValue.images 
-// console.log(props.id);
+const { pending, data: posts } = useLazyFetch('https://dummyjson.com/products/'+props.id)
+const images = posts._rawValue.images 
 console.log(posts._rawValue);
 
 </script>
 <template>
     <div class="col-span-1 cursor-pointer group">
         <div class=" flex flex-col w-full">
-            div
             <div class="aspect-square w-full relative overflow-hidden rounded-xl">
                 <!-- Swiper -->
                 <Swiper class="h-full w-full"
@@ -28,13 +26,33 @@ console.log(posts._rawValue);
                             translate: ['100%', 0, 0],
                         },
                     }">
-                    <SwiperSlide class="h-full w-200px" style="min-height: 300px;" v-for="(image, index) in gambar" :key="index">
+                    <SwiperSlide class="h-full w-200px" style="min-height: 300px;">
                         <img alt="listing"
-                            :src="image"
+                            src="https://a0.muscache.com/im/pictures/4f70b681-a792-4530-8c52-f2a8d262942d.jpg?im_w=720"
+                            class="object-cover h-full w-full" />
+                    </SwiperSlide>
+                    <SwiperSlide class="h-full w-200px" style="min-height: 300px;">
+                        <img alt="listing"
+                            src="https://a0.muscache.com/im/pictures/miso/Hosting-811113927948467981/original/79a69b64-afef-4e84-8129-daa826408e4b.jpeg?im_w=1200"
+                            class="object-cover h-full w-full" />
+                    </SwiperSlide>
+                    <SwiperSlide class="h-full w-200px" style="min-height: 300px;">
+                        <img alt="listing"
+                            src="https://a0.muscache.com/im/pictures/8a6d1edc-466b-4148-8c7a-5f5b396ec224.jpg?im_w=720"
+                            class="object-cover h-full w-full" />
+                    </SwiperSlide>
+                    <SwiperSlide class="h-full w-200px" style="min-height: 300px;">
+                        <img alt="listing"
+                            src="https://a0.muscache.com/im/pictures/miso/Hosting-811113927948467981/original/b4c75269-f558-4b11-a527-e49841566523.jpeg?im_w=720"
+                            class="object-cover h-full w-full" />
+                    </SwiperSlide>
+                    <SwiperSlide class="h-full w-200px" style="min-height: 300px;">
+                        <img alt="listing"
+                            src="https://a0.muscache.com/im/pictures/miso/Hosting-811113927948467981/original/8fbe90d3-3029-47db-8b02-690b158581c5.jpeg?im_w=720"
                             class="object-cover h-full w-full" />
                     </SwiperSlide>
                 </Swiper>
-
+                <!-- end Swiper -->
                 <div class="absolute top-3 right-3 z-10">
                     <HeartButton />
                 </div>

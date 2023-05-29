@@ -179,7 +179,6 @@ export default {
         },
         scrollToLeft() {
             const scrollContainer = this.$refs.scrollContainer;
-            // Logika untuk melakukan scroll ke kiri
             scrollContainer.scrollBy({
                 left: -scrollContainer.clientWidth,
                 behavior: 'smooth'

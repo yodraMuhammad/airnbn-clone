@@ -6,18 +6,7 @@
           <EmptyState />
       </div>
       <div v-else class="mt-6 grid grid-cols-1 sm:grid-cols-2 md:gridcols-3 lg:grid-cols-4 xl:gridcols-5 2xl:grid-cols-6 gap-6 pb-20">
-        <ListingCard />
-        <ListingCard />
-        <ListingCard />
-        <ListingCard />
-        <ListingCard />
-        <ListingCard />
-        
-        <ListingCard />
-        <ListingCard />
-        <ListingCard />
-        <ListingCard />
-
+        <Listing/>
         <ListingCardLoad />
         <ListingCardLoad />
         <ListingCardLoad />
@@ -39,6 +28,6 @@ const listing = {
 }
 
 useHead({
-  title: 'Airbnb' // Ganti dengan judul baru yang Anda inginkan
+  title: 'Airbnb'
 })
 </script>

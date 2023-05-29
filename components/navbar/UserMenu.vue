@@ -40,14 +40,7 @@ import MenuItem from '@/components/navbar/MenuItem.vue'
 
 export default{
     setup() {
-        // const [isOpen, setIsOpen] = useState(false);
-
-        // const toggleOpen = useCallback(()=>{
-        //     setIsOpen((value)=> !value);
-        // }, []);
-
         const isOpen = ref(false);
-        // console.log(isOpen.value);
         const toggleOpen = () => {
             isOpen.value = !isOpen.value;
             console.log("run");
