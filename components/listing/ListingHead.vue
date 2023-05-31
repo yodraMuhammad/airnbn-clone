@@ -2,7 +2,7 @@
 const props = defineProps({
   title: String,
   locationValue: String,
-  imageSrc: String,
+  imageSrc: Array,
   id: String,
   curentUser: String,
 
@@ -10,7 +10,7 @@ const props = defineProps({
 </script>
 
 <template>
-    <div class="text-2xl font-semibold">Veluvana Bali - Owl Bamboo House</div>
+    <div class="text-2xl font-semibold">{{ title }}</div>
     <div class="flex justify-between">
         <div class="flex gap-2">
             <div class="flex gap-1 items-center">
