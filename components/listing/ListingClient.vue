@@ -1,3 +1,11 @@
+<script setup>
+const props = defineProps({
+    posts: Object
+})
+
+console.log(props.posts);
+</script>
+
 <template>
     <div class="max-w-screen-xl mx-auto">
         <div class="flex flex-col gap-1">

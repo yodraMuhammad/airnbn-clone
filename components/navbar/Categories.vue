@@ -156,6 +156,14 @@ export default {
                 behavior: 'smooth'
             });
         },
+        scrollLeft() {
+            const container = this.$refs.scrollContainer;
+            container.scrollBy({
+                top: 0,
+                left: -120,
+                behavior: 'smooth'
+            });
+        },
         handleScroll() {
             const scrollContainer = this.$refs.scrollContainer;
             if (scrollContainer.scrollLeft < scrollContainer.scrollWidth - scrollContainer.clientWidth) {

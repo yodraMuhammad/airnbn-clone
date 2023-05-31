@@ -12,7 +12,7 @@
                             English (US)
                         </div>
                         <div class="cursor-pointer hover:underline">
-                            Rp IDR
+                            $ USD
                         </div>
                         <div class="flex items-center gap-1 cursor-pointer hover:underline">
                             <div>
