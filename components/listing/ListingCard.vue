@@ -9,7 +9,6 @@ const { data: posts } = await useFetch('https://dummyjson.com/products/'+props.i
 const navigateToPage = () => {
     router.push('/ListingPage/' + props.id);
 }
-
 </script>
 <template>
     <div class="col-span-1 cursor-pointer group">
@@ -64,75 +63,45 @@ const navigateToPage = () => {
 
 <style>
 .swiper-button-next {
-    display: none;
-    color: white;
-    background-color: rgba(255, 255, 255, 0.8);
-    height: 34px;
-    width: 34px;
-    border-radius: 25px;
+    @apply hidden h-[34px] w-[34px] top-[53%] transition bg-white bg-opacity-80 rounded-full;
     background-image: url(images/chevron.png);
     background-repeat: no-repeat;
     background-size: 50% 50%;
     background-position: center;
-    top: 53%;
     box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
-    transition: transform 0.3s ease;
 }
 
 .swiper-button-prev {
-    display: none;
-    color: white;
-    background-color: rgba(255, 255, 255, 0.8);
-    height: 34px;
-    width: 34px;
-    border-radius: 25px;
+    @apply hidden h-[34px] w-[34px] top-[53%] transition bg-white bg-opacity-80 rounded-full;
     background-image: url(images/left-chevron.png);
     background-repeat: no-repeat;
     background-size: 50% 50%;
     background-position: center;
-    top: 53%;
     box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
-    transition: transform 0.3s ease;
 }
 
-.swiper-button-next:hover {
-    transform: scale(1.05);
-    background-color: rgba(255, 255, 255, 1);
+.swiper-button-next:hover, .swiper-button-prev:hover {
+    @apply scale-105 bg-white;
 }
 
-.swiper-button-prev:hover {
-    transform: scale(1.05);
-    background-color: rgba(255, 255, 255, 1);
-}
 
-.swiper-button-next::after {
-    display: none;
-} 
-.swiper-button-prev::after {
-    display: none;
+.swiper-button-prev::after, .swiper-button-next::after {
+    @apply hidden;
 } 
 
 .swiper-button-disabled {
-    display: none;
-    transform: scale(0);
+    @apply scale-0;
 }
 
-.group:hover .swiper-button-prev {
-    display: block;
-}
-
-.group:hover .swiper-button-next {
-    display: block;
+.group:hover .swiper-button-next,.group:hover .swiper-button-prev {
+    @apply block;
 }
 
 .swiper-pagination-bullet {
-    width: 6px;
-    height: 6px;
-    background-color: white;
-    opacity: 0.6;
+    @apply w-[6px] h-[6px] bg-white opacity-60;
 }
 
 .swiper-pagination-bullet-active {
-    opacity: 1;
+    @apply opacity-100;
 }
 </style>

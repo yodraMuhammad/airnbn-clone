@@ -1,7 +1,5 @@
 <script setup>
 const router = useRoute();
-
-console.log(router.params.id)
 const { data: posts } = await useFetch('https://dummyjson.com/products/'+router.params.id)
 </script>
 

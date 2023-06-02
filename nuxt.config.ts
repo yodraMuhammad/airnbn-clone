@@ -1,4 +1,3 @@
-// https://nuxt.com/docs/api/configuration/nuxt-config
 export default defineNuxtConfig({
     css: ['~/assets/css/main.css'],
     postcss: {
@@ -7,5 +6,5 @@ export default defineNuxtConfig({
         autoprefixer: {},
         },
     },
-    modules: ['nuxt-icon','nuxt-swiper']
+    modules: ['nuxt-icon','nuxt-swiper','@tailvue/nuxt'],
 })

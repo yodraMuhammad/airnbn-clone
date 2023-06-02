@@ -1,104 +1,109 @@
 <script setup>
 const categories = [
     {
-        label: 'Rooms',
-        icon: 'ic:sharp-bed',
-        description: 'This property is close to the beach'
+        label: 'All',
+        icon: 'la:border-all',
+        slug: 'all'
     },
     {
-        label: 'Beach',
-        icon: 'fluent:beach-24-regular',
-        description: 'This property is close to the beach'
+        label: 'Smartphones',
+        icon: 'bi:phone',
+        slug: 'smartphones'
     },
     {
-        label: 'Camping',
-        icon: 'streamline:travel-places-camping-tent-outdoor-recreation-camping-tent-teepee-tipi',
-        description: 'This property has camping'
+        label: 'Laptops',
+        icon: 'ph:laptop',
+        slug: 'laptops'
     },
     {
-        label: 'Amazing pools',
-        icon: 'fluent:swimming-pool-20-regular',
-        description: 'This property has a pool!'
+        label: 'Fragrances',
+        icon: 'solar:perfume-outline',
+        slug: 'fragrances'
     },
     {
-        label: 'OMG!',
-        icon: 'solar:ufo-outline',
-        description: 'This property has a pool!'
+        label: 'Skincare',
+        icon: 'ph:mask-happy',
+        slug: 'skincare'
     },
     {
-        label: 'Bed and breakfast!',
+        label: 'Groceries',
         icon: 'ph:coffee',
-        description: 'This property has a pool!'
+        slug: 'groceries'
     },
     {
-        label: 'Trending',
-        icon: 'mingcute:fire-line',
-        description: 'This property has camping'
+        label: 'Home Decoration',
+        icon: 'fluent-mdl2:picture-center',
+        slug: 'home-decoration'
     },
     {
-        label: 'Island',
-        icon: 'streamline:travel-places-beach-island-waves-outdoor-recreation-tree-beach-palm-wave-water',
-        description: 'This property has camping'
+        label: 'Furniture',
+        icon: 'streamline:shopping-catergories-sofa-decoration-furniture-interior-design-couch-sofa-decorate',
+        slug: 'furniture'
     },
     {
-        label: 'Vineyard',
-        icon: 'mdi:fruit-grapes-outline',
-        description: 'This property has camping'
+        label: 'Tops',
+        icon: 'ph:t-shirt',
+        slug: 'tops'
     },
     {
-        label: 'Artics',
-        icon: 'bi:snow',
-        description: 'This property has camping'
+        label: 'Womens dresses',
+        icon: 'ph:dress',
+        slug: 'womens-dresses'
     },
     {
-        label: 'Castles',
-        icon: 'ph:castle-turret-light',
-        description: 'This property has camping'
+        label: 'Womens shoes',
+        icon: 'mingcute:shoe-2-line',
+        slug: 'womens-shoes'
     },
     {
-        label: 'Top of the world',
-        icon: 'material-symbols:mountain-flag-outline',
-        description: 'This property has camping'
+        label: 'Mens shirts',
+        icon: 'ph:shirt-folded',
+        slug: 'mens-shirts'
     },
     {
-        label: 'Iconic cities',
-        icon: 'icon-park-outline:tower-of-pisa',
-        description: 'This property has camping'
+        label: 'Mens Shoes',
+        icon: 'mingcute:shoe-line',
+        slug: 'mens-shoes'
     },
     {
-        label: 'Ski-in/out',
-        icon: 'mdi:ski',
-        description: 'This property has camping'
+        label: 'Mens watches',
+        icon: 'solar:watch-round-linear',
+        slug: 'mens-watches'
     },
     {
-        label: 'Boats',
-        icon: 'clarity:boat-line',
-        description: 'This property has camping'
+        label: 'Womens watches',
+        icon: 'solar:watch-square-linear',
+        slug: 'womens-watches'
     },
     {
-        label: "Desert",
-        icon: 'ph:cactus',
-        description: 'This property has camping'
+        label: "Womens bags",
+        icon: 'ph:bag',
+        slug: 'womens-bags'
     },
     {
-        label: "Container",
-        icon: 'clarity:container-line',
-        description: 'This property has camping'
+        label: "Womens jewellery",
+        icon: 'maki:jewelry-store',
+        slug: 'womens-jewellery'
     },
     {
-        label: "Golfing",
-        icon: 'ic:baseline-sports-golf',
-        description: 'This property has camping'
+        label: "Sunglasses",
+        icon: 'ph:sunglasses',
+        slug: 'sunglasses'
     },
     {
-        label: "Chef's Kitchen",
-        icon: 'tabler:chef-hat',
-        description: 'This property has camping'
+        label: "Automotive",
+        icon: 'ph:car',
+        slug: 'automotive'
     },
     {
-        label: "Campers",
-        icon: 'tabler:camper',
-        description: 'This property has camping'
+        label: "Motorcycle",
+        icon: 'ph:motorcycle',
+        slug: 'motorcycle'
+    },
+    {
+        label: "Lighting",
+        icon: 'ic:outline-light',
+        slug: 'lighting'
     },
 ]
 </script>
@@ -109,12 +114,12 @@ const categories = [
             <div ref="scrollContainer" class="flex overflow-x-scroll whitespace-nowrap gap-10 w-full"
                 @scroll="handleScroll">
                 <CategoryBox v-for="item in categories" :key="item.label" :icon="item.icon" :label="item.label"
-                    :description="item.description" />
+                    :slug="item.slug" />
                 <div class="absolute inset-y-0 right-0 bg-gradient-to-r from-transparent to-white w-8 pointer-events-none"></div>
             </div>
             <client-only>
                 <div v-show="showButton2" @click="scrollLeft"
-                    class="absolute border-neutral-400 cursor-pointer border-[1px] w-7 h-7 p-0 bg-white rounded-full hover:drop-shadow-xl">
+                    class="hidden md:block absolute border-neutral-400 cursor-pointer border-[1px] w-7 h-7 p-0 bg-white rounded-full hover:drop-shadow-xl">
                     <div class="text-center">
                         <Icon name="ph:caret-left-bold" style="font-size: 14;" />
                     </div>
@@ -122,17 +127,18 @@ const categories = [
             </client-only>
             <client-only>
                 <div @click="scrollRight" v-show="showButton"
-                    class="absolute border-neutral-400 cursor-pointer right-48 border-[1px] w-7 h-7 p-0 bg-white rounded-full transition-shadow hover:drop-shadow-xl">
+                    class="hidden md:block absolute border-neutral-400 cursor-pointer right-36 lg:right-48 border-[1px] w-7 h-7 p-0 bg-white rounded-full transition-shadow hover:drop-shadow-xl">
                     <div class="text-center">
                         <Icon name="ph:caret-right-bold" style="font-size: 14;" />
                     </div>
                 </div>
             </client-only>
-            <div
-                class="flex flex-row gap-2 items-center min-w-fit cursor-pointer ml-8 h-6 pl-3 pr-4 py-6 border border-gray-300 rounded-2xl">
-                <Icon name="mi:filter" style="font-size: 18;" />
-                <div class="text-neutral-950 text-sm font-medium">
-                    Filters
+            <div class="hidden md:block">
+                <div class="flex flex-row gap-2 items-center min-w-fit cursor-pointer ml-8 h-6 pl-3 pr-4 py-6 border border-gray-300 rounded-2xl">
+                    <Icon name="mi:filter" style="font-size: 18;" />
+                    <div class="text-neutral-950 text-sm font-medium">
+                        Filters
+                    </div>
                 </div>
             </div>
         </div>

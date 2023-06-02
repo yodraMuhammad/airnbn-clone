@@ -4,6 +4,7 @@ const router = useRouter()
 const props = defineProps({
   label: String,
   icon: String,
+  slug: String,
   onClick: Function,
   selected: {
     type: Boolean,
@@ -12,52 +13,71 @@ const props = defineProps({
     }
 });
 
-const addCategoryParam = (value) => {
-    if(router.currentRoute.value.query.category == undefined){
-        const router = useRouter()
-        const newQuery = { category: value }
-        router.push({ path: '/', query: newQuery })
+const currentSlug = ref('all')
+
+if(router.currentRoute.value.params.slug){
+    currentSlug.value = router.currentRoute.value.params.slug
+}
+
+const  go = (slug) => {
+    if(slug == 'all'){
+        router.push('/')
     }else{
-        if(router.currentRoute.value.query.category == props.label){
-            router.push({ path: '/' })
-        }else{
-            const router = useRouter()
-            const newQuery = { category: value }
-            router.push({ path: '/', query: newQuery })
-        }
+        router.push('/category/'+slug)
     }
 }
-let a= ''
-if(router.currentRoute.value.query.category == undefined && props.label=='Rooms'){
-    a = true
-} else{
-    a = false
-}
+// const addCategoryParam = (value) => {
+//     if(router.currentRoute.value.query.category == undefined){
+//         const router = useRouter()
+//         const newQuery = { category: value }
+//         router.push({ path: '/', query: newQuery })
+//     }else{
+//         if(router.currentRoute.value.query.category == props.label){
+//             router.push({ path: '/' })
+//         }else{
+//             const router = useRouter()
+//             const newQuery = { category: value }
+//             router.push({ path: '/', query: newQuery })
+//         }
+//     }
+// }
 
 </script>
 
 <template>
-    <div @click="addCategoryParam(label)"
+    <NuxtLink :to="slug == 'all' ? '/': '/Category/'+slug" exact-active-class="active"
     :class="[
       'category',
       'flex',
       'flex-col',
       'items-center',
       'justify-center',
-      'gap-2',
+      'gap-1',
       'py-3',
       'border-b-2',
       'hover:text-neutral-900',
-      'hover:border-b-neutral-400',
       'transition',
-      router.currentRoute.value.query.category == label || a ? 'cursor-default': 'cursor-pointer',
-      router.currentRoute.value.query.category == label || a  ? 'border-b-neutral-800' : 'border-transparent',
-      router.currentRoute.value.query.category == label || a  ? 'text-neutral-800' : 'text-neutral-600'
+      currentSlug == slug ? '' : 'hover:border-b-neutral-400',
+      currentSlug == slug  ? 'text-neutral-800' : 'text-neutral-600'
     ]">
         <Icon :name="icon" style="font-size: 26;" />
         <div class="category-text font-normal text-sm whitespace-nowrap">
             {{ label }}
         </div>
-    </div>
+        <div>
+            <!-- {{router.currentRoute.value.params.slug}} -->
+        </div>
+    </NuxtLink>
 </template>
 
+<style>
+
+.category{
+    @apply border-b-[2px] border-transparent;  
+}
+
+.active{
+    @apply cursor-default border-black hover:cursor-default hover:border-black;
+}
+
+</style>
