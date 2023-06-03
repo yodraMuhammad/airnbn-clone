@@ -1,8 +1,6 @@
 <script setup>
 import { useToast, useModal } from 'tailvue';
 import axios from 'axios';
-import nuxtStorage from 'nuxt-storage';
-import storage from '@nuxtjs/universal-storage'
 
 const router = useRouter()
 const props = defineProps({
