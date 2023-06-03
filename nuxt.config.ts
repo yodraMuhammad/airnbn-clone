@@ -6,5 +6,5 @@ export default defineNuxtConfig({
         autoprefixer: {},
         },
     },
-    modules: ['nuxt-icon','nuxt-swiper','@tailvue/nuxt'],
+    modules: ['nuxt-icon','nuxt-swiper','@tailvue/nuxt']
 })

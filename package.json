@@ -19,6 +19,7 @@
   "dependencies": {
     "@heroicons/vue": "^2.0.18",
     "@tailvue/nuxt": "^1.0.0",
+    "axios": "^1.4.0",
     "nuxt-swiper": "^1.1.0"
   }
 }

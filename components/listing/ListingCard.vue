@@ -54,7 +54,7 @@ const navigateToPage = () => {
                 </div> 
             </div>
             <div class="flex flex-row items-center gap-1 mt-1">
-                <div class="font-semibold">${{ posts.price }}</div>
+                <div class="font-semibold">${{ posts.price.toLocaleString() }}</div>
             </div>
             </div>
         </div>

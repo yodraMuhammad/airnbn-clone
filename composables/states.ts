@@ -1,0 +1,5 @@
+export const useCounter = () => useState<number>('counter', () => 0)
+export const useColor = () => useState<string>('color', () => 'pink')
+export const useCart = () => useState<number>('cart', () => 0)
+export const useAuth = () => useState<object>('auth', () => ({}))
+export const useId = () => useState<number>('id', () => 0)
