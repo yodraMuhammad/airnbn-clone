@@ -20,10 +20,6 @@ const isDisabled = ref(false);
 const isDisabled2 = ref(false);
 const isDisabled3 = ref(false);
 const message = ref('')
-const isShow = () => {
-    show.value = !show.value
-    console.log(show.value);
-}
 const {data:recentCart} = await useFetch('https://6vbjxu.sse.codesandbox.io/carts?product.id='+props.posts.id+'&userId='+id.value)
 console.log('data',recentCart);
 if(recentCart._rawValue){
@@ -53,19 +49,19 @@ const addNote = () => {
     note.value = !note.value
 }
 const username = ref('')
+const password = ref('')
 const order = ref({"product": props.posts}) 
 const login = async () => {
     isDisabled3.value = true
     console.log('username', username.value);
     id.value = sessionStorage.getItem('auth');
-    axios.get('https://6vbjxu.sse.codesandbox.io/profile?username='+username.value)
+    axios.get('https://6vbjxu.sse.codesandbox.io/profile?username='+username.value+'&pass='+password.value)
         .then((response) => {
             console.log('login',response.data[0]);
             if(response.data[0]){
                 sessionStorage.setItem('auth', JSON.stringify(response.data[0].id))
             id.value = response.data[0].id
             console.log(id.value)
-
             axios.get("https://6vbjxu.sse.codesandbox.io/carts?userId="+sessionStorage.getItem('auth'))
                 .then((response) => cart.value = response.data.length)
                 .catch((error)=>console.log("Gagal :", error)
@@ -77,13 +73,7 @@ const login = async () => {
                 isDisabled3.value = false;
                 const toast = useToast();
                 message.value = "Wrong username or password !!";
-                show.value = true;
-                toast.show({
-                    type: 'success',
-                    message: 'Successfully added to cart',
-                    position: 'top-left',
-                    timeout: 4,
-                })
+                password.value = ''
             }
         })
         .catch(function (error) {
@@ -185,6 +175,14 @@ const buy = async () => {
         isShow();
     }
 }
+
+const isShow = () => {
+    isDisabled.value = false;
+    isDisabled2.value = false;
+    message.value = '';
+    username.value = '';
+    show.value = !show.value;
+}
 </script>
 
 <template>
@@ -202,7 +200,7 @@ const buy = async () => {
                     <div v-show="message" class="text-sm text-red-500 text-center py-3 rounded-lg bg-rose-100 border-[1px]">{{ message }}</div>
                     <div>
                         <label for="email" class="text-sm font-medium text-gray-900 block mb-2 dark:text-gray-300">Username</label>
-                        <input type="text" name="email" id="email" class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white" placeholder="akbar123" required="" v-model="username">
+                        <input type="text" name="email" id="email" class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white" placeholder="Username" required="" v-model="username">
                     </div>
                     <div>
                         <label for="password" class="text-sm font-medium text-gray-900 block mb-2 dark:text-gray-300">password</label>
