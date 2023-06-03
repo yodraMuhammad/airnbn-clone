@@ -215,7 +215,9 @@ const isShow = () => {
                         </div>
                         <a href="#" class="text-sm text-rose-700 hover:underline dark:text-blue-500">Lost Password?</a>
                     </div>
-                    <div :disabled="isDisabled3" class="w-full text-white bg-rose-500 hover:bg-rose-600 focus:ring-4 focus:ring-rose-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-rose-600 dark:hover:bg-rose-700 dark:focus:ring-rose-800" @click="login()">
+                    <div :disabled="isDisabled3" class="w-full text-white bg-rose-500 hover:bg-rose-600 focus:ring-4 focus:ring-rose-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-rose-600 dark:hover:bg-rose-700 dark:focus:ring-rose-800" @click="login()"
+                    :class="isDisabled || isDisabled2 ? 'cursor-not-allowed': 'cursor-pointer'"
+                    >
                         <Icon name="eos-icons:bubble-loading" v-if="isDisabled3"/>
                         {{isDisabled3 ? ' Loading..' : 'Login'}}
                     </div>
