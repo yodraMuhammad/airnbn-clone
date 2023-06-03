@@ -1,6 +1,5 @@
 <script setup>
 import axios from "axios";
-import nuxtStorage from 'nuxt-storage';
 import { useToast } from 'tailvue'
 definePageMeta({
   layout: "custom",
