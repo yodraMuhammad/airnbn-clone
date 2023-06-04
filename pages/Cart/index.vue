@@ -18,6 +18,7 @@ onBeforeMount(() => {
 });
 const router = useRouter()
 const id = useId()
+const cart = useCart()
 const { data: response } = await useFetch('https://6vbjxu.sse.codesandbox.io/carts?userId='+id.value)
 const data = ref(response._rawValue);
 const totalItemCost = ref(data.value.reduce((accumulator, currentValue) => {
@@ -72,6 +73,12 @@ const checkStock = (index) =>{
 }
 
 const success = () =>{
+    cart.value = 0
+    data.value.map(function(item){
+        console.log(item.id)
+        return  axios.delete("https://6vbjxu.sse.codesandbox.io/carts/" + item.id)
+            .catch((error) => console.log("Gagal :", error));
+    })
     router.push('/success')
 }
 </script>
