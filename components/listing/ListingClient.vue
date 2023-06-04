@@ -20,11 +20,6 @@ const isDisabled3 = ref(false);
 const message = ref('')
 const {data:recentCart} = await useFetch('https://6vbjxu.sse.codesandbox.io/carts?product.id='+props.posts.id+'&userId='+id.value)
 console.log('data',recentCart);
-if(recentCart._rawValue){
-    // total.value = recentCart._rawValue[0].orderQuantity;
-}
-// console.log('data',recentCart._rawValue[0].orderQuantity);
-// console.log('data',recentCart._rawValue[0].id);
 const handleChange = (numb) =>{
     if(numb < 1){
         total.value = 1
@@ -144,15 +139,6 @@ const addCart = async () => {
 }
 
 const buy = async () => {
-    // if(Object.keys(auth.value).length){
-    //     isDisabled2.value = true;
-    //     cart.value+=1;
-    //     order.value.orderQuantity = total.value;
-    //     const responses = await $fetch('https://6vbjxu.sse.codesandbox.io/carts', {method: 'POST',body: order.value});
-    //     router.push('/cart')
-    // }else{
-    //     isShow();
-    // }
     isDisabled2.value = true;
     if(sessionStorage.getItem('auth')){
         if(recentCart._rawValue[0]){
@@ -390,32 +376,6 @@ const isShow = () => {
     </div>
 </div>
 </template>
-
-<script>
-import Login from '@/components/auth/Login.vue';
-
-export default {
-    components: {
-        Login,
-    },
-    data() {
-    return {
-      showModal: false
-    };
-  },
-  methods: {
-    openModal() {
-        console.log('open', this.showModal);
-        this.showModal = true;
-        console.log('open', this.showModal);
-    },
-    closeModal() {
-      this.showModal = false;
-    }
-  }
-}
-</script>
-
 <style>
 input[type="number"]::-webkit-inner-spin-button,
 input[type="number"]::-webkit-outer-spin-button {

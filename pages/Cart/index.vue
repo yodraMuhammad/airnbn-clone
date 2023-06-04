@@ -16,28 +16,29 @@ onBeforeMount(() => {
         });
   }
 });
+const router = useRouter()
 const id = useId()
 const { data: response } = await useFetch('https://6vbjxu.sse.codesandbox.io/carts?userId='+id.value)
 const data = ref(response._rawValue);
+const totalItemCost = ref(data.value.reduce((accumulator, currentValue) => {
+  return accumulator + currentValue.product.price * currentValue.orderQuantity;
+}, 0));
 const addItem = (index) => {
     if(data.value[index].product.stock>data.value[index].orderQuantity){
         data.value[index].orderQuantity+=1
     }
+    totalItemCost.value = data.value.reduce((accumulator, currentValue) => {
+        return accumulator + currentValue.product.price * currentValue.orderQuantity;
+        }, 0);
 }
 const reduceItem = (index) => {
     if(data.value[index].orderQuantity>1){
         data.value[index].orderQuantity-=1
     }
+    totalItemCost.value = data.value.reduce((accumulator, currentValue) => {
+        return accumulator + currentValue.product.price * currentValue.orderQuantity;
+        }, 0);
 }
-const checkStock = (index) =>{
-    if(data.value[index].orderQuantity<1){
-        data.value[index].orderQuantity = 1
-    }
-    if(data.value[index].orderQuantity>data.value[index].product.stock){
-        data.value[index].orderQuantity = data.value[index].product.stock
-    }
-}
-// console.log(data.value[0].orderQuantity);
 const deleteCart = async (id) =>{
     axios.delete("https://6vbjxu.sse.codesandbox.io/carts/" + id)
         .then(async () => {
@@ -56,6 +57,22 @@ const deleteCart = async (id) =>{
         .catch(function (error) {
           console.log("Gagal :", error);
         });
+}
+const checkStock = (index) =>{
+    if(data.value[index].orderQuantity<1){
+        data.value[index].orderQuantity = 1
+    }
+    if(data.value[index].orderQuantity>data.value[index].product.stock){
+        data.value[index].orderQuantity = data.value[index].product.stock
+    }
+    totalItemCost.value = data.value.reduce((accumulator, currentValue) => {
+        return accumulator + currentValue.product.price * currentValue.orderQuantity;
+        }, 0);
+    console.log(totalItemCost.value);
+}
+
+const success = () =>{
+    router.push('/success')
 }
 </script>
 
@@ -115,8 +132,8 @@ const deleteCart = async (id) =>{
                     <div id="summary" class="w-1/4 px-8 py-10 bg-neutral-100">
                         <h1 class="font-semibold text-2xl border-b pb-8">Order Summary</h1>
                         <div class="flex justify-between mt-10 mb-5">
-                        <span class="font-semibold text-sm uppercase">Items 3</span>
-                        <span class="font-semibold text-sm">590$</span>
+                        <span class="font-semibold text-sm uppercase">Items {{ data.length }}</span>
+                        <span class="font-semibold text-sm">${{ totalItemCost.toLocaleString() }}</span>
                         </div>
                         <div>
                         <label class="font-medium inline-block mb-3 text-sm uppercase">Shipping</label>
@@ -132,9 +149,9 @@ const deleteCart = async (id) =>{
                         <div class="border-t mt-8">
                         <div class="flex font-semibold justify-between py-6 text-sm uppercase">
                             <span>Total cost</span>
-                            <span>$600</span>
+                            <span>${{ (totalItemCost+10).toLocaleString() }}</span>
                         </div>
-                        <button class="bg-rose-500 rounded-md font-semibold hover:bg-rose-600 py-3 text-sm text-white uppercase w-full">Checkout</button>
+                        <div @click="success()" class="cursor-pointer text-center bg-rose-500 rounded-md font-semibold hover:bg-rose-600 py-3 text-sm text-white uppercase w-full">Checkout</div>
                         </div>
                     </div>
 

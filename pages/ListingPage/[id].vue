@@ -19,7 +19,16 @@ onBeforeMount(() => {
 <template>
     <div class="pt-48 pb-36">
         <Container>
-            <ListingClient :posts="posts"/>
+            <Suspense>
+              <template #default>
+                <ListingClient :posts="posts"/>
+                <!-- <ListingClientLoad/> -->
+              </template>
+              <template #fallback>
+                  <!-- Loading.. -->
+                <ListingClientLoad/>
+              </template>
+            </Suspense>
         </Container>
     </div>
 </template>
