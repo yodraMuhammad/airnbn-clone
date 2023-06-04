@@ -2,7 +2,8 @@
 const router = useRouter();
 const key = ref('');
 const search = () => {
-    router.push('/search/'+key.value);
+    const hasil = key.value.split(' ').join('+');
+    router.push('/search/'+hasil);
     key.value = '';
 }
 
