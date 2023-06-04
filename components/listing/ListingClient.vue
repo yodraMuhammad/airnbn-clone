@@ -78,59 +78,68 @@ const addCart = async () => {
     if(sessionStorage.getItem('auth')){
         if(recentCart._rawValue[0]){
             recentCart._rawValue[0].orderQuantity += total.value
-            const responses = await $fetch( 'https://6vbjxu.sse.codesandbox.io/carts/'+recentCart._rawValue[0].id, {method: 'PUT',body: recentCart._rawValue[0]});
-            toast.show({
-                type: 'success',
-                message: 'Successfully added to cart',
-                position: 'top-left',
-                timeout: 4,
-            })
 
-            $modal.show({
-                type: 'success',
-                title: 'Successfully Added',
-                body: 'Item successfully added to cart',
-                primary: {
-                        label: 'Continue Shopping',
-                        theme: 'red',
-                        action: () => router.push('/'),
-                    },
-                secondary: {
-                        label: 'View Cart',
-                        theme: 'white',
-                        action: () => router.push('/cart'),
-                    },
-            })
-            isDisabled.value = false;
+            axios
+                .put("https://6vbjxu.sse.codesandbox.io/carts/"+recentCart._rawValue[0].id, recentCart._rawValue[0])
+                .then(() => {
+                    toast.show({
+                        type: 'success',
+                        message: 'Successfully added to cart',
+                        position: 'top-left',
+                        timeout: 4,
+                    })
+
+                    $modal.show({
+                        type: 'success',
+                        title: 'Successfully Added',
+                        body: 'Item successfully added to cart',
+                        primary: {
+                                label: 'Continue Shopping',
+                                theme: 'red',
+                                action: () => router.push('/'),
+                            },
+                        secondary: {
+                                label: 'View Cart',
+                                theme: 'white',
+                                action: () => router.push('/cart'),
+                            },
+                    })
+                    isDisabled.value = false;
+                })
+                .catch((err) => console.log(err));
         }else{
             cart.value+=1;
             order.value.orderQuantity = total.value;
             order.value.userId = sessionStorage.getItem('auth');
-            const responses = await $fetch( 'https://6vbjxu.sse.codesandbox.io/carts', {method: 'POST',body: order.value});
-            toast.show({
-                type: 'success',
-                message: 'Successfully added to cart',
-                position: 'top-left',
-                timeout: 4,
-            })
 
-            const $modal = useModal()
-            $modal.show({
-                type: 'success',
-                title: 'Successfully Added',
-                body: 'Item successfully added to cart',
-                primary: {
-                        label: 'Continue Shopping',
-                        theme: 'red',
-                        action: () => router.push('/'),
-                    },
-                secondary: {
-                        label: 'View Cart',
-                        theme: 'white',
-                        action: () => router.push('/cart'),
-                    },
-            })
-            isDisabled.value = false;
+            axios
+                .post("https://6vbjxu.sse.codesandbox.io/carts", order.value)
+                .then(() => {
+                    toast.show({
+                        type: 'success',
+                        message: 'Successfully added to cart',
+                        position: 'top-left',
+                        timeout: 4,
+                    })
+
+                    $modal.show({
+                        type: 'success',
+                        title: 'Successfully Added',
+                        body: 'Item successfully added to cart',
+                        primary: {
+                                label: 'Continue Shopping',
+                                theme: 'red',
+                                action: () => router.push('/'),
+                            },
+                        secondary: {
+                                label: 'View Cart',
+                                theme: 'white',
+                                action: () => router.push('/cart'),
+                            },
+                    })
+                    isDisabled.value = false;
+                })
+                .catch((err) => console.log(err));
         }
     }else{
         isDisabled.value = false;
@@ -143,16 +152,18 @@ const buy = async () => {
     if(sessionStorage.getItem('auth')){
         if(recentCart._rawValue[0]){
             recentCart._rawValue[0].orderQuantity += total.value
-            const responses = await $fetch( 'https://6vbjxu.sse.codesandbox.io/carts/'+recentCart._rawValue[0].id, {method: 'PUT',body: recentCart._rawValue[0]});
-            router.push('/cart')
-            isDisabled.value = false;
+            axios
+                .put("https://6vbjxu.sse.codesandbox.io/carts/"+recentCart._rawValue[0].id, recentCart._rawValue[0])
+                .then(() => {router.push('/cart')})
+                .catch((err) => console.log(err));
         }else{
             cart.value+=1;
             order.value.orderQuantity = total.value;
             order.value.userId = sessionStorage.getItem('auth');
-            const responses = await $fetch( 'https://6vbjxu.sse.codesandbox.io/carts', {method: 'POST',body: order.value});
-            router.push('/cart')
-            isDisabled.value = false;
+            axios
+                .post("https://6vbjxu.sse.codesandbox.io/carts", order.value)
+                .then(() => {router.push('/cart')})
+                .catch((err) => console.log(err));
         }
     }else{
         isDisabled2.value = false;
