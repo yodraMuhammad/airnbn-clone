@@ -19,6 +19,7 @@ onBeforeMount(() => {
 const router = useRouter()
 const id = useId()
 const cart = useCart()
+const isDisabled = ref(false)
 const { data: response } = await useFetch('https://6vbjxu.sse.codesandbox.io/carts?userId='+id.value)
 const data = ref(response._rawValue);
 const totalItemCost = ref(data.value.reduce((accumulator, currentValue) => {
@@ -41,6 +42,7 @@ const reduceItem = (index) => {
         }, 0);
 }
 const deleteCart = async (id) =>{
+    isDisabled.value = true
     axios.delete("https://6vbjxu.sse.codesandbox.io/carts/" + id)
         .then(async () => {
             console.log('deleted');
@@ -54,9 +56,11 @@ const deleteCart = async (id) =>{
             const { data: response } = await useFetch('https://6vbjxu.sse.codesandbox.io/carts')
             data.value = response._rawValue;
             cartNumb.value = response._rawValue.length;
+            isDisabled.value = false
         })
         .catch(function (error) {
           console.log("Gagal :", error);
+          isDisabled.value = false
         });
 }
 const checkStock = (index) =>{
@@ -112,7 +116,10 @@ const success = () =>{
                                 <div class="flex flex-col justify-between ml-4 flex-grow">
                                 <span class="font-bold text-sm">{{ cart.product.title }}</span>
                                 <span class="text-red-500 text-xs">{{ cart.product.brand }}</span>
-                                <div @click="deleteCart(cart.id)" class="cursor-pointer font-semibold hover:text-red-500 text-gray-500 text-xs">Remove</div>
+                                <div @click="deleteCart(cart.id)" 
+                                class="font-semibold hover:text-red-500 text-gray-500 text-xs"
+                                :class="isDisabled ? 'cursor-wait': 'cursor-pointer'"
+                                >Remove</div>
                                 </div>
                             </div>
                             <div class="flex justify-center w-1/5">

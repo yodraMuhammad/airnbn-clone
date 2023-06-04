@@ -64,7 +64,6 @@ const login = async () => {
             show.value = false;
             }else{
                 isDisabled3.value = false;
-                const toast = useToast();
                 message.value = "Wrong username or password !!";
                 password.value = ''
             }
@@ -342,9 +341,9 @@ const isShow = () => {
                         </div>
                         <div class="flex items-center gap-2">
                             <div class="flex items-center justify-center border p-1 rounded-md">
-                                <div @click="decrement" class="text-rose-500 bg-white px-3 py-1 rounded text-xl hover:bg-neutral-300">-</div>
+                                <div @click="decrement" class="cursor-pointer text-rose-500 bg-white px-3 py-1 rounded text-xl hover:bg-neutral-300">-</div>
                                 <input type="number" class="mx-1 w-[50px] text-center appearance-none" v-model="total" @change="handleChange(total)">
-                                <div @click="increment" class="text-rose-500 bg-white px-3 py-1 rounded text-xl hover:bg-neutral-300">+</div>
+                                <div @click="increment" class="cursor-pointer text-rose-500 bg-white px-3 py-1 rounded text-xl hover:bg-neutral-300">+</div>
                             </div>
                             <div>
                                 Total Stock: <span class="font-semibold">{{ posts.stock }}</span>

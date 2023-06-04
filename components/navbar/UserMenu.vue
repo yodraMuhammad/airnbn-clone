@@ -21,55 +21,168 @@
             </div>
         </div>
         <div v-if="isOpen" class="absolute z-50 rounded-xl drop-shadow-2xl w-[40vw] md:w-[200px] bg-white overflow-hidden right-0 top-12 text-sm">
-            <div class="flex flex-col cursor-pointer">
-                <MenuItem :onClick="()=>{}" label="Sign up"/>
-            </div>
-            <div class="flex flex-col cursor-pointer">
+            <div v-show="!id" @click="isShow=true" class="flex flex-col cursor-pointer">
                 <MenuItem :onClick="()=>{}" label="Login"/>
             </div>
+            <div v-show="!id" class="flex flex-col cursor-pointer">
+                <MenuItem :onClick="()=>{}" label="Sign up"/>
+            </div>
             <hr>
-            <div class="flex flex-col cursor-pointer">
+            <!-- <div class="flex flex-col cursor-pointer">
                 <MenuItem :onClick="()=>{}" label="Airbnb your home"/>
             </div>
             <div class="flex flex-col cursor-pointer">
-                <MenuItem :onClick="()=>{}" label="Help"/>
-            </div>
-            <hr>
-            <div class="flex flex-col cursor-pointer">
-                <MenuItem :onClick="()=>{console.log('1');sessionStorage.removeItem('auth');sessionStorage.clear();useRouter().push('/')}" label="Logout"/>
+                <MenuItem :onClick="()=>{}" label="Help"/> 
+            </div>-->
+            <div v-show="id" @click="logout" class=" flex flex-col cursor-pointer">
+                <MenuItem label="Logout"/>
             </div>
         </div>
         
+
+        <!-- login -->
+        <div class="modal" v-if="isShow">
+            <div class="bg-white rounded-lg shadow relative dark:bg-gray-700 w-[450px]">
+                <div class="flex justify-end p-2">
+                    <button @click="isShow=!isShow" type="button" class="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm p-1.5 ml-auto inline-flex items-center dark:hover:bg-gray-800 dark:hover:text-white" data-modal-toggle="authentication-modal">
+                        <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clip-rule="evenodd"></path></svg>  
+                    </button>
+                </div>
+                <form class="space-y-6 px-6 lg:px-8 pb-4 sm:pb-6 xl:pb-8" action="#">
+                    <h3 class="text-xl font-medium text-gray-900 dark:text-white">Sign in to our platform {{ visible }}</h3>
+                    <div v-show="message" class="text-sm text-red-500 text-center py-3 rounded-lg bg-rose-100 border-[1px]">{{ message }}</div>
+                    <div>
+                        <label for="email" class="text-sm font-medium text-gray-900 block mb-2 dark:text-gray-300">Username</label>
+                        <input type="text" name="email" id="email" class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white" placeholder="Username" required="" v-model="username">
+                    </div>
+                    <div>
+                        <label for="password" class="text-sm font-medium text-gray-900 block mb-2 dark:text-gray-300">password</label>
+                        <input type="password" name="password" id="password" placeholder="••••••••" class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white" required="" v-model="password">
+                    </div>
+                    <div class="flex justify-between">
+                        <div class="flex items-start">
+                            <div class="flex items-center h-5">
+                                <input id="remember" aria-describedby="remember" type="checkbox" class="bg-gray-50 border border-gray-300 focus:ring-3 focus:ring-blue-300 h-4 w-4 rounded dark:bg-gray-600 dark:border-gray-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800">
+                            </div>
+                            <div class="text-sm ml-3">
+                            <label for="remember" class="font-medium text-gray-900 dark:text-gray-300">Remember me</label>
+                            </div>
+                        </div>
+                        <a href="#" class="text-sm text-rose-700 hover:underline dark:text-blue-500">Lost Password?</a>
+                    </div>
+                    <div :disabled="isDisabled3" class="w-full text-white bg-rose-500 hover:bg-rose-600 focus:ring-4 focus:ring-rose-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-rose-600 dark:hover:bg-rose-700 dark:focus:ring-rose-800" @click="login()"
+                    :class="isDisabled || isDisabled2 ? 'cursor-not-allowed': 'cursor-pointer'"
+                    >
+                        <Icon name="eos-icons:bubble-loading" v-if="isDisabled3"/>
+                        {{isDisabled3 ? ' Loading..' : 'Login'}}
+                    </div>
+                    <div class="text-sm font-medium text-gray-500 dark:text-gray-300">
+                        Not registered? <a href="#" class="text-blue-700 hover:underline dark:text-rose-500">Create account</a>
+                    </div>
+                </form>
+            </div> 
+        </div>
+    <!-- end -->
+
     </div>
 </template>
 <script>
 import { Bars3Icon } from '@heroicons/vue/24/solid'
 import { UserCircleIcon } from '@heroicons/vue/24/solid'
 import { GlobeAltIcon } from '@heroicons/vue/24/outline'
+import { useToast } from 'tailvue';
 import MenuItem from '@/components/navbar/MenuItem.vue'
+import axios from 'axios'
 
 export default{
     setup() {
+        onBeforeMount(() => {
+        const cart = useCart();
+        const id = useId();
+        id.value = sessionStorage.getItem('auth');
+        if(sessionStorage.getItem('auth')){
+        axios.get("https://6vbjxu.sse.codesandbox.io/carts?userId="+sessionStorage.getItem('auth'))
+            .then((response) => cart.value = response.data.length)
+            .catch(function (error) {
+            console.log("Gagal :", error);
+            });
+        }
+        });
         const isOpen = ref(false);
+        const isShow = ref(false);
         const toggleOpen = () => {
             isOpen.value = !isOpen.value;
         };
-
+        const toggleShow = () => {
+            isShow.value = !isShow.value;
+        };
         const isOpenComputed = computed(() => isOpen.value);
         const router = useRouter()
         const cart = useCart()
+        const id = useId()
+        console.log(id.value);
         const logout = () => {
-            sessionStorage.removeItem('auth')
-            sessionStorage.clear()
+            cart.value = 0;
+            id.value = 0;
+            sessionStorage.removeItem('auth');
+            sessionStorage.clear();
+            const toast = useToast();
+            toast.show({
+                        type: 'success',
+                        message: 'Thank you! You have successfully logged out.',
+                        position: 'top-left',
+                        timeout: 4,
+                    })
             useRouter().push('/')
         }
+        const message = ref('')
+        const username = ref('')
+        const password = ref('')
+        const isDisabled3 = ref(false)
+        const login = async () => {
+            isDisabled3.value = true
+            console.log('username', username.value);
+            id.value = sessionStorage.getItem('auth');
+            axios.get('https://6vbjxu.sse.codesandbox.io/profile?username='+username.value+'&pass='+password.value)
+                .then((response) => {
+                    console.log('login',response.data[0]);
+                    if(response.data[0]){
+                        sessionStorage.setItem('auth', JSON.stringify(response.data[0].id))
+                    id.value = response.data[0].id
+                    console.log(id.value)
+                    axios.get("https://6vbjxu.sse.codesandbox.io/carts?userId="+sessionStorage.getItem('auth'))
+                        .then((response) => cart.value = response.data.length)
+                        .catch((error)=>console.log("Gagal :", error)
+                    );
+                    username.value ='';
+                    password.value = '';
+                    isDisabled3.value = false;
+                    isShow.value = false;
+                    }else{
+                        isDisabled3.value = false;
+                        message.value = "Wrong username or password !!";
+                        password.value = ''
+                    }
+                })
+                .catch(function (error) {
+                    console.log("Gagal :", error);
+                });
+        }
         return{
+            id,
             isOpen,
             toggleOpen,
             isOpenComputed,
             router,
             cart,
-            logout
+            logout,
+            isShow,
+            toggleShow,
+            login,
+            message,
+            username,
+            password,
+            isDisabled3
         }
     },
     components:{
@@ -80,3 +193,18 @@ export default{
     },
 }
 </script>
+
+<style scoped>
+.modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.5);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 100;
+}
+</style>
