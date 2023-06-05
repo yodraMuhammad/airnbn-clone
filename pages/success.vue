@@ -1,8 +1,12 @@
 <template>
-    <div class="pt-48">
+    <div class="pt-64">
       <Container>
-        <div>
-            Thank You :*
+        <div class="flex w-full h-full justify-center">
+            <div class="w-1/4">
+                <img src="/images/success.png" alt="">
+                <div class="text-center text-3xl font-bold">Success!!</div>
+                <div class="text-center text-xl">Your order is being processed  Please wait.</div>
+            </div>
         </div> 
       </Container>
     </div>

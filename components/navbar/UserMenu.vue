@@ -120,7 +120,6 @@ export default{
         const router = useRouter()
         const cart = useCart()
         const id = useId()
-        console.log(id.value);
         const logout = () => {
             cart.value = 0;
             id.value = 0;

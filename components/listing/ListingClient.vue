@@ -19,7 +19,7 @@ const isDisabled2 = ref(false);
 const isDisabled3 = ref(false);
 const message = ref('')
 const {data:recentCart} = await useFetch('https://6vbjxu.sse.codesandbox.io/carts?product.id='+props.posts.id+'&userId='+id.value)
-console.log('data',recentCart);
+// console.log('data',recentCart._rawValue);
 const handleChange = (numb) =>{
     if(numb < 1){
         total.value = 1
@@ -27,7 +27,6 @@ const handleChange = (numb) =>{
         total.value = props.posts.stock
     }
 }
-console.log(auth);
 const decrement = () => {
     if(total.value>1){
         total.value-=1
@@ -177,6 +176,13 @@ const isShow = () => {
     username.value = '';
     show.value = !show.value;
 }
+
+// const thumbsSwiper = ref(null);
+// const setThumbsSwiper = (swiper) => {
+//     thumbsSwiper.value = swiper;
+//     console.log(thumbsSwiper.value)
+// };
+    
 </script>
 
 <template>
@@ -270,8 +276,9 @@ const isShow = () => {
             <div class="flex gap-10">
                 <div class="w-1/4 h-[35vh] overflow-hidden rounded-xl relative flex gap-2 z-0">
                     <Swiper class="h-full w-full"
-                        :modules="[SwiperAutoplay, SwiperEffectCreative, SwiperPagination, SwiperNavigation]"
+                        :modules="[SwiperAutoplay, SwiperEffectCreative, SwiperPagination, SwiperNavigation, SwiperThumbs,SwiperHashNavigation]"
                         watch-slides-progress
+                        @swiper="setThumbsSwiper"
                         :slides-per-view="1" 
                         :loop="false" :effect="'creative'" 
                         :navigation="true" 
@@ -292,7 +299,7 @@ const isShow = () => {
                                 translate: ['100%', 0, 0],
                             },
                         }">
-                        <SwiperSlide class="self-center" style="min-height: 300px;" v-for="(image, index) in posts.images"
+                        <SwiperSlide class="self-center" style="min-height: 200px;" v-for="(image, index) in posts.images"
                             :key="index">
                             <img alt="listing" :src="image" class="object-cover self-center h-full max-w-full" @click="navigateToPage()" />
                         </SwiperSlide>
