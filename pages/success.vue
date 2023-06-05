@@ -20,7 +20,6 @@
     const cart = useCart();
     const id = useId()
     id.value = sessionStorage.getItem('auth');
-    console.log(id.value);
     if(sessionStorage.getItem('auth')){
     axios.get("https://6vbjxu.sse.codesandbox.io/carts?userId="+sessionStorage.getItem('auth'))
       .then((response) => cart.value = response.data.length)
