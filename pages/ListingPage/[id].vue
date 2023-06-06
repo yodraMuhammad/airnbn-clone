@@ -26,10 +26,8 @@ onBeforeMount(() => {
             <Suspense>
               <template #default>
                 <ListingClient :posts="posts"/>
-                <!-- <ListingClientLoad/> -->
               </template>
               <template #fallback>
-                  <!-- Loading.. -->
                 <ListingClientLoad/>
               </template>
             </Suspense>

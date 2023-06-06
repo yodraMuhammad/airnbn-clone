@@ -34,9 +34,7 @@ onBeforeMount(() => {
       });
     }
 });
-
 useHead({
   title: 'Airbnb'
 })
-
 </script>
