@@ -39,7 +39,6 @@
             </ol>
         </nav>
         <div class="flex flex-col gap-1">
-            <!-- <ListingHead :title="posts.title" :imageSrc="posts.images" locationValue="" id="id" curentUser="user"/> -->
             <div class="flex gap-10">
                 <div class="w-1/4 h-[35vh] overflow-hidden rounded-xl relative flex gap-2 z-0">
                     <div class="h-full bg-gray-200 rounded-sm dark:bg-gray-700 w-full mb-1"></div>
@@ -136,78 +135,4 @@ input[type="number"]::-webkit-outer-spin-button {
     justify-content: center;
     z-index: 100;
 }
-
- /* .swiper-button-next {
-    display: block;
-    color: white;
-    background-color: rgba(255, 255, 255, 0.8);
-    height: 34px;
-    width: 34px;
-    border-radius: 25px;
-    background-image: url(images/chevron.png);
-    background-repeat: no-repeat;
-    background-size: 50% 50%;
-    background-position: center;
-    top: 53%;
-    box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
-    transition: transform 0.3s ease;
-} */
-
-/* .swiper-button-prev {
-    @apply block;
-    display: block;
-    color: white;
-    background-color: rgba(255, 255, 255, 0.8);
-    height: 34px;
-    width: 34px;
-    border-radius: 25px;
-    background-image: url(images/left-chevron.png);
-    background-repeat: no-repeat;
-    background-size: 50% 50%;
-    background-position: center;
-    top: 53%;
-    box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
-    transition: transform 0.3s ease;
-} */
-/*
-.swiper-button-next:hover {
-    transform: scale(1.05);
-    background-color: rgba(255, 255, 255, 1);
-}
-
-.swiper-button-prev:hover {
-    transform: scale(1.05);
-    background-color: rgba(255, 255, 255, 1);
-}
-
-.swiper-button-next::after {
-    display: none;
-} 
-.swiper-button-prev::after {
-    display: none;
-} 
-
-.swiper-button-disabled {
-    display: none;
-    transform: scale(0);
-}
-
-.group:hover .swiper-button-prev {
-    display: block;
-}
-
-.group:hover .swiper-button-next {
-    display: block;
-}
-
-.swiper-pagination-bullet {
-    width: 6px;
-    height: 6px;
-    background-color: white;
-    opacity: 0.6;
-}
-
-.swiper-pagination-bullet-active {
-    @apply opacity-100;
-} */
 </style>

@@ -184,9 +184,8 @@ const isShow = () => {
 </script>
 
 <template>
-    <!-- md -->
     <div class="max-w-screen-xl mx-auto hidden md:block">
-        <!-- login -->
+    <!-- login -->
         <div class="modal" v-if="show">
             <div class="bg-white rounded-lg shadow relative dark:bg-gray-700 w-[450px]">
                 <div class="flex justify-end p-2">

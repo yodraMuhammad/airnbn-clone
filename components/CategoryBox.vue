@@ -26,21 +26,6 @@ const  go = (slug) => {
         router.push('/category/'+slug)
     }
 }
-// const addCategoryParam = (value) => {
-//     if(router.currentRoute.value.query.category == undefined){
-//         const router = useRouter()
-//         const newQuery = { category: value }
-//         router.push({ path: '/', query: newQuery })
-//     }else{
-//         if(router.currentRoute.value.query.category == props.label){
-//             router.push({ path: '/' })
-//         }else{
-//             const router = useRouter()
-//             const newQuery = { category: value }
-//             router.push({ path: '/', query: newQuery })
-//         }
-//     }
-// }
 
 </script>
 
@@ -63,9 +48,6 @@ const  go = (slug) => {
         <Icon :name="icon" style="font-size: 26;" />
         <div class="category-text font-normal text-sm whitespace-nowrap">
             {{ label }}
-        </div>
-        <div>
-            <!-- {{router.currentRoute.value.params.slug}} -->
         </div>
     </NuxtLink>
 </template>
