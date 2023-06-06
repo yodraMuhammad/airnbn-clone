@@ -1,6 +1,8 @@
 <script setup>
+import { MagnifyingGlassIcon } from '@heroicons/vue/24/solid'
 const router = useRouter();
 const key = ref('');
+const isInputFocused = ref(false);
 const search = () => {
     if(key.value){
         const hasil = key.value.split(' ').join('+');
@@ -8,14 +10,12 @@ const search = () => {
         key.value = '';
     }
 }
-
-const isInputFocused = ref(false)
 const handleInputFocus = () => {
-      isInputFocused.value = true;
-    }
+    isInputFocused.value = true;
+}
 const handleInputBlur = ()=> {
-      isInputFocused.value = false;
-    }
+    isInputFocused.value = false;
+}
 </script>
 <template>
     <div class="seacrh border-[1px] w-full md:w-auto py-2 rounded-full shadow-sm hover:shadow-md transition cursor-pointer" :class="{'border-rose-500': isInputFocused}">
@@ -38,13 +38,3 @@ const handleInputBlur = ()=> {
         </div>
     </div>
 </template>
-
-<script>
-import { MagnifyingGlassIcon } from '@heroicons/vue/24/solid'
-
-export default{
-    components:{
-        MagnifyingGlassIcon   
-    }
-}
-</script>

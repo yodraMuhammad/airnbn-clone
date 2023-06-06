@@ -33,8 +33,4 @@ onMounted(() => {
   //     });
   //   }
 });
-
-useHead({
-  title: 'Airbnb'
-})
 </script>
