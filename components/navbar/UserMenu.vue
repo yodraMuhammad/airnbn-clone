@@ -141,10 +141,8 @@ export default{
     const isDisabled3 = ref(false)
     const login = async () => {
         isDisabled3.value = true
-        console.log('username', username.value);
         axios.get('https://6vbjxu.sse.codesandbox.io/profile?username='+username.value+'&pass='+password.value)
             .then((response) => {
-                console.log('login',response.data[0]);
                 if(response.data[0]){
                     sessionStorage.setItem('auth', JSON.stringify(response.data[0].id))
                     sessionStorage.setItem('displayPicture', response.data[0].image)

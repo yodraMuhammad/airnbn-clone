@@ -20,7 +20,6 @@ const isDisabled2 = ref(false);
 const isDisabled3 = ref(false);
 const message = ref('')
 const {data:recentCart} = await useFetch('https://6vbjxu.sse.codesandbox.io/carts?product.id='+props.posts.id+'&userId='+id.value)
-// console.log('data',recentCart._rawValue);
 const handleChange = (numb) =>{
     if(numb < 1){
         total.value = 1
@@ -46,7 +45,6 @@ const password = ref('')
 const order = ref({"product": props.posts}) 
 const login = async () => {
     isDisabled3.value = true
-    console.log('username', username.value);
     axios.get('https://6vbjxu.sse.codesandbox.io/profile?username='+username.value+'&pass='+password.value)
         .then((response) => {
             if(response.data[0]){
@@ -54,8 +52,6 @@ const login = async () => {
                 sessionStorage.setItem('displayPicture', response.data[0].image);
                 id.value = response.data[0].id
                 displayPicture.value = response.data[0].image
-                console.log(id.value);
-                console.log(displayPicture.value);
                 axios.get("https://6vbjxu.sse.codesandbox.io/carts?userId="+sessionStorage.getItem('auth'))
                     .then((response) => cart.value = response.data.length)
                     .catch((error)=>console.log("Gagal :", error)
@@ -623,78 +619,4 @@ input[type="number"]::-webkit-outer-spin-button {
     justify-content: center;
     z-index: 100;
 }
-
- /* .swiper-button-next {
-    display: block;
-    color: white;
-    background-color: rgba(255, 255, 255, 0.8);
-    height: 34px;
-    width: 34px;
-    border-radius: 25px;
-    background-image: url(images/chevron.png);
-    background-repeat: no-repeat;
-    background-size: 50% 50%;
-    background-position: center;
-    top: 53%;
-    box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
-    transition: transform 0.3s ease;
-} */
-
-/* .swiper-button-prev {
-    @apply block;
-    display: block;
-    color: white;
-    background-color: rgba(255, 255, 255, 0.8);
-    height: 34px;
-    width: 34px;
-    border-radius: 25px;
-    background-image: url(images/left-chevron.png);
-    background-repeat: no-repeat;
-    background-size: 50% 50%;
-    background-position: center;
-    top: 53%;
-    box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
-    transition: transform 0.3s ease;
-} */
-/*
-.swiper-button-next:hover {
-    transform: scale(1.05);
-    background-color: rgba(255, 255, 255, 1);
-}
-
-.swiper-button-prev:hover {
-    transform: scale(1.05);
-    background-color: rgba(255, 255, 255, 1);
-}
-
-.swiper-button-next::after {
-    display: none;
-} 
-.swiper-button-prev::after {
-    display: none;
-} 
-
-.swiper-button-disabled {
-    display: none;
-    transform: scale(0);
-}
-
-.group:hover .swiper-button-prev {
-    display: block;
-}
-
-.group:hover .swiper-button-next {
-    display: block;
-}
-
-.swiper-pagination-bullet {
-    width: 6px;
-    height: 6px;
-    background-color: white;
-    opacity: 0.6;
-}
-
-.swiper-pagination-bullet-active {
-    @apply opacity-100;
-} */
 </style>
