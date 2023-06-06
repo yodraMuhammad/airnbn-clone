@@ -21,15 +21,20 @@ const { data: posts } = await useFetch('https://dummyjson.com/products/category/
 onBeforeMount(() => {
   const cart = useCart();
   const id = useId()
-  id.value = sessionStorage.getItem('auth');
-  if(sessionStorage.getItem('auth')){
-  axios.get("https://6vbjxu.sse.codesandbox.io/carts?userId="+sessionStorage.getItem('auth'))
-    .then((response) => cart.value = response.data.length)
-    .catch(function (error) {
-      console.log("Gagal :", error);
-    });
+  const displayPicture = useDP()
+  if((sessionStorage.getItem('displayPicture'))){
+    displayPicture.value = sessionStorage.getItem('displayPicture');
   }
+  if(sessionStorage.getItem('auth')){
+    id.value = sessionStorage.getItem('auth');
+    axios.get("https://6vbjxu.sse.codesandbox.io/carts?userId="+sessionStorage.getItem('auth'))
+      .then((response) => cart.value = response.data.length)
+      .catch(function (error) {
+        console.log("Gagal :", error);
+      });
+    }
 });
+
 useHead({
   title: 'Airbnb'
 })

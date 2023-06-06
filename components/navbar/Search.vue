@@ -2,9 +2,11 @@
 const router = useRouter();
 const key = ref('');
 const search = () => {
-    const hasil = key.value.split(' ').join('+');
-    router.push('/search/'+hasil);
-    key.value = '';
+    if(key.value){
+        const hasil = key.value.split(' ').join('+');
+        router.push('/search/'+hasil);
+        key.value = '';
+    }
 }
 
 const isInputFocused = ref(false)

@@ -16,7 +16,12 @@
             <div @click="toggleOpen" class="p-4 md:py-1 md:px-2 border-[1px] border-neutral-200 flex flex-row items-center gap-3 rounded-full cursor-pointer hover:shadow-md transition text-gray-500">
                 <Bars3Icon class="h-5 w-5"/>
                 <div class="hidden md:block ">
-                    <UserCircleIcon class="h-8 w-8"/>
+                    <!-- <Avatar :src='"profile.png"'/> -->
+                    <!-- <img src="~/assets/images/profile.png" alt="Avatar" class="rounded-full" height="30" width="30" v-if="displayPicture"> -->
+                    <img :src="displayPicture" alt="Avatar" class="rounded-full" height="30" width="30">
+                    <!-- <img :src="displayPicture" alt="Avatar" class="rounded-full" height="30" width="30" v-else> -->
+                    <!-- <UserCircleIcon class="h-8 w-8" v-else/> -->
+                    <!-- <Avatar src="images/profile.png"/> -->
                 </div>
             </div>
         </div>
@@ -28,12 +33,6 @@
                 <MenuItem :onClick="()=>{}" label="Sign up"/>
             </div>
             <hr>
-            <!-- <div class="flex flex-col cursor-pointer">
-                <MenuItem :onClick="()=>{}" label="Airbnb your home"/>
-            </div>
-            <div class="flex flex-col cursor-pointer">
-                <MenuItem :onClick="()=>{}" label="Help"/> 
-            </div>-->
             <div v-show="id" @click="logout" class=" flex flex-col cursor-pointer">
                 <MenuItem label="Logout"/>
             </div>
@@ -101,88 +100,91 @@ export default{
         const id = useId();
         id.value = sessionStorage.getItem('auth');
         if(sessionStorage.getItem('auth')){
-        axios.get("https://6vbjxu.sse.codesandbox.io/carts?userId="+sessionStorage.getItem('auth'))
-            .then((response) => cart.value = response.data.length)
-            .catch(function (error) {
-            console.log("Gagal :", error);
-            });
+        // axios.get("https://6vbjxu.sse.codesandbox.io/carts?userId="+sessionStorage.getItem('auth'))
+        //     .then((response) => cart.value = response.data.length)
+        //     .catch(function (error) {
+        //     console.log("Gagal :", error);
+        //     });
         }
-        });
-        const isOpen = ref(false);
-        const isShow = ref(false);
-        const toggleOpen = () => {
-            isOpen.value = !isOpen.value;
-        };
-        const toggleShow = () => {
-            isShow.value = !isShow.value;
-        };
-        const isOpenComputed = computed(() => isOpen.value);
-        const router = useRouter()
-        const cart = useCart()
-        const id = useId()
-        const logout = () => {
-            cart.value = 0;
-            id.value = 0;
-            sessionStorage.removeItem('auth');
-            sessionStorage.clear();
-            const toast = useToast();
-            toast.show({
-                        type: 'success',
-                        message: 'Thank you! You have successfully logged out.',
-                        position: 'top-left',
-                        timeout: 4,
-                    })
-            useRouter().push('/')
-        }
-        const message = ref('')
-        const username = ref('')
-        const password = ref('')
-        const isDisabled3 = ref(false)
-        const login = async () => {
-            isDisabled3.value = true
-            console.log('username', username.value);
-            id.value = sessionStorage.getItem('auth');
-            axios.get('https://6vbjxu.sse.codesandbox.io/profile?username='+username.value+'&pass='+password.value)
-                .then((response) => {
-                    console.log('login',response.data[0]);
-                    if(response.data[0]){
-                        sessionStorage.setItem('auth', JSON.stringify(response.data[0].id))
-                    id.value = response.data[0].id
-                    console.log(id.value)
-                    axios.get("https://6vbjxu.sse.codesandbox.io/carts?userId="+sessionStorage.getItem('auth'))
-                        .then((response) => cart.value = response.data.length)
-                        .catch((error)=>console.log("Gagal :", error)
-                    );
-                    username.value ='';
-                    password.value = '';
-                    isDisabled3.value = false;
-                    isShow.value = false;
-                    }else{
-                        isDisabled3.value = false;
-                        message.value = "Wrong username or password !!";
-                        password.value = ''
-                    }
+    });
+    const isOpen = ref(false);
+    const isShow = ref(false);
+    const toggleOpen = () => {
+        isOpen.value = !isOpen.value;
+    };
+    const toggleShow = () => {
+        isShow.value = !isShow.value;
+    };
+    const isOpenComputed = computed(() => isOpen.value);
+    const router = useRouter()
+    const cart = useCart()
+    const id = useId()
+    const displayPicture = useDP()
+    const logout = () => {
+        cart.value = 0;
+        id.value = 0;
+        displayPicture.value = "https://ubd.edu.bn/wp-content/uploads/2021/12/NoPath-Copy-21_38_11zon-264x300.jpg";
+        sessionStorage.removeItem('auth');
+        sessionStorage.clear();
+        const toast = useToast();
+        toast.show({
+                    type: 'success',
+                    message: 'Thank you! You have successfully logged out.',
+                    position: 'top-left',
+                    timeout: 4,
                 })
-                .catch(function (error) {
-                    console.log("Gagal :", error);
-                });
-        }
-        return{
-            id,
-            isOpen,
-            toggleOpen,
-            isOpenComputed,
-            router,
-            cart,
-            logout,
-            isShow,
-            toggleShow,
-            login,
-            message,
-            username,
-            password,
-            isDisabled3
-        }
+        useRouter().push('/')
+    }
+    const message = ref('')
+    const username = ref('')
+    const password = ref('')
+    const isDisabled3 = ref(false)
+    const login = async () => {
+        isDisabled3.value = true
+        console.log('username', username.value);
+        axios.get('https://6vbjxu.sse.codesandbox.io/profile?username='+username.value+'&pass='+password.value)
+            .then((response) => {
+                console.log('login',response.data[0]);
+                if(response.data[0]){
+                    sessionStorage.setItem('auth', JSON.stringify(response.data[0].id))
+                    sessionStorage.setItem('displayPicture', response.data[0].image)
+                id.value = response.data[0].id
+                displayPicture.value = response.data[0].image
+                axios.get("https://6vbjxu.sse.codesandbox.io/carts?userId="+sessionStorage.getItem('auth'))
+                    .then((response) => cart.value = response.data.length)
+                    .catch((error)=>console.log("Gagal :", error)
+                );
+                username.value ='';
+                password.value = '';
+                isDisabled3.value = false;
+                isShow.value = false;
+                }else{
+                    isDisabled3.value = false;
+                    message.value = "Wrong username or password !!";
+                    password.value = ''
+                }
+            })
+            .catch(function (error) {
+                console.log("Gagal :", error);
+            });
+    }
+    return{
+        id,
+        isOpen,
+        toggleOpen,
+        isOpenComputed,
+        router,
+        cart,
+        logout,
+        isShow,
+        toggleShow,
+        login,
+        message,
+        username,
+        password,
+        isDisabled3,
+        displayPicture
+    }
     },
     components:{
         Bars3Icon,

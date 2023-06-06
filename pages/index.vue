@@ -9,7 +9,7 @@
         <Listing :posts="data"/>
       </div>
       <div class="flex justify-center w-full pb-20">
-        <div class="flex justify-center w-1/4 py-3 px-2 bg-rose-500 text-white rounded-lg" 
+        <div class="flex justify-center w-full md:w-1/4 py-3 px-2 bg-rose-500 text-white rounded-lg" 
         :class="isDisabled?'cursor-not-allowed':'cursor-pointer'"
         @click="add()"
         v-show="isShow"
@@ -43,14 +43,18 @@ const add = async () => {
 onBeforeMount(() => {
   const cart = useCart();
   const id = useId()
-  id.value = sessionStorage.getItem('auth');
-  if(sessionStorage.getItem('auth')){
-  axios.get("https://6vbjxu.sse.codesandbox.io/carts?userId="+sessionStorage.getItem('auth'))
-    .then((response) => cart.value = response.data.length)
-    .catch(function (error) {
-      console.log("Gagal :", error);
-    });
+  const displayPicture = useDP()
+  if((sessionStorage.getItem('displayPicture'))){
+    displayPicture.value = sessionStorage.getItem('displayPicture');
   }
+  if(sessionStorage.getItem('auth')){
+    id.value = sessionStorage.getItem('auth');
+    axios.get("https://6vbjxu.sse.codesandbox.io/carts?userId="+sessionStorage.getItem('auth'))
+      .then((response) => cart.value = response.data.length)
+      .catch(function (error) {
+        console.log("Gagal :", error);
+      });
+    }
 });
 
 useHead({

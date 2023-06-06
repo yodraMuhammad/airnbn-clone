@@ -4,27 +4,45 @@ import { useToast } from 'tailvue'
 definePageMeta({
   layout: "custom",
 });
-onBeforeMount(() => {
+
+
+const data = ref();
+
+onMounted(async() => {
   const cart = useCart();
   const id = useId()
-  id.value = sessionStorage.getItem('auth');
+  const displayPicture = useDP()
+  
+  const { data: response } = await useFetch('https://6vbjxu.sse.codesandbox.io/carts?userId='+id.value)
+  data.value = response._rawValue;
+
+  if((sessionStorage.getItem('displayPicture'))){
+    displayPicture.value = sessionStorage.getItem('displayPicture');
+  }
   if(sessionStorage.getItem('auth')){
-    axios.get("https://6vbjxu.sse.codesandbox.io/carts?userId="+sessionStorage.getItem('auth'))
-        .then((response) => cart.value = response.data.length)
-        .catch(function (error) {
-        console.log("Gagal :", error);
-        });
+  id.value = sessionStorage.getItem('auth');
+  axios.get("https://6vbjxu.sse.codesandbox.io/carts?userId="+sessionStorage.getItem('auth'))
+    .then((response) => cart.value = response.data.length)
+    .catch(function (error) {
+      console.log("Gagal :", error);
+    });
   }
 });
+
 const router = useRouter()
 const id = useId()
 const cart = useCart()
 const isDisabled = ref(false)
 const { data: response } = await useFetch('https://6vbjxu.sse.codesandbox.io/carts?userId='+id.value)
-const data = ref(response._rawValue);
-const totalItemCost = ref(data.value.reduce((accumulator, currentValue) => {
-  return accumulator + currentValue.product.price * currentValue.orderQuantity;
-}, 0));
+data.value = response._rawValue;
+const totalItemCost = ref();
+
+if(data.value){
+    totalItemCost.value = data.value.reduce((accumulator, currentValue) => {
+    return accumulator + currentValue.product.price * currentValue.orderQuantity;
+    }, 0);
+}
+
 const addItem = (index) => {
     if(data.value[index].product.stock>data.value[index].orderQuantity){
         data.value[index].orderQuantity+=1
@@ -33,6 +51,7 @@ const addItem = (index) => {
         return accumulator + currentValue.product.price * currentValue.orderQuantity;
         }, 0);
 }
+
 const reduceItem = (index) => {
     if(data.value[index].orderQuantity>1){
         data.value[index].orderQuantity-=1
@@ -43,6 +62,7 @@ const reduceItem = (index) => {
 }
 const deleteCart = async (id) =>{
     isDisabled.value = true
+    cart.value -= 1
     axios.delete("https://6vbjxu.sse.codesandbox.io/carts/" + id)
         .then(async () => {
             console.log('deleted');
@@ -77,12 +97,20 @@ const checkStock = (index) =>{
 }
 
 const success = () =>{
-    cart.value = 0
-    data.value.map(function(item){
+    cart.value = 0;
+    console.log(data.value);
+    // data.value.map(function(item){
+    //     console.log(item.id)
+    //     return  axios.delete("https://6vbjxu.sse.codesandbox.io/carts/" + item.id)
+    //         .then((res)=>console.log(res))
+    //         .catch((error) => console.log("Gagal :", error));
+    // })
+    data.value.forEach((item) => {
         console.log(item.id)
-        return  axios.delete("https://6vbjxu.sse.codesandbox.io/carts/" + item.id)
-            .catch((error) => console.log("Gagal :", error));
-    })
+        axios.delete("https://6vbjxu.sse.codesandbox.io/carts/" + item.id)
+        .then((res)=>console.log(res))
+        .catch((error) => console.log("Gagal :", error));
+    });
     router.push('/success')
 }
 </script>
@@ -98,7 +126,7 @@ const success = () =>{
                     <div class="w-full md:w-3/4 bg-white px-10 py-10">
                         <div class="flex justify-between border-b pb-8">
                         <h1 class="font-semibold text-2xl">Shopping Cart</h1>
-                        <h2 class="font-semibold text-2xl">{{ data.length }} Items</h2>
+                        <h2 class="font-semibold text-2xl">{{ data ? data.length : 0}} Items</h2>
                         </div>
                         <div class="flex mt-10 mb-5">
                         <h3 class="font-semibold text-gray-600 text-xs uppercase w-2/5">Product Details</h3>
@@ -146,8 +174,8 @@ const success = () =>{
                     <div id="summary" class="w-full md:w-1/4 px-8 py-10 bg-neutral-100">
                         <h1 class="font-semibold text-2xl border-b pb-8">Order Summary</h1>
                         <div class="flex justify-between mt-10 mb-5">
-                        <span class="font-semibold text-sm uppercase">Items {{ data.length }}</span>
-                        <span class="font-semibold text-sm">${{ totalItemCost.toLocaleString() }}</span>
+                        <span class="font-semibold text-sm uppercase">Items {{ data ? data.length : 0}}</span>
+                        <span class="font-semibold text-sm">${{ totalItemCost ? totalItemCost.toLocaleString() : 0 }}</span>
                         </div>
                         <div>
                         <label class="font-medium inline-block mb-3 text-sm uppercase">Shipping</label>
@@ -165,10 +193,13 @@ const success = () =>{
                             <span>Total cost</span>
                             <span>${{ (totalItemCost+10).toLocaleString() }}</span>
                         </div>
-                        <div @click="success()" class="cursor-pointer text-center bg-rose-500 rounded-md font-semibold hover:bg-rose-600 py-3 text-sm text-white uppercase w-full">Checkout</div>
+                        <button @click="success()"  
+                        :disabled="!cart"
+                        class="text-center bg-rose-500 rounded-md font-semibold hover:bg-rose-600 py-3 text-sm text-white uppercase w-full"
+                        :class="cart ? 'cursor-pointer': 'cursor-not-allowed'"
+                        >Checkout</button>
                         </div>
                     </div>
-
                     </div>
                 </div>
             </template>

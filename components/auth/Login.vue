@@ -45,10 +45,7 @@ const visibleFalse = () =>{
                         Not registered? <a href="#" class="text-blue-700 hover:underline dark:text-rose-500">Create account</a>
                     </div>
                 </form>
-            
-    </div> 
-
-
+            </div> 
       </div>
     </div>
   </template>
