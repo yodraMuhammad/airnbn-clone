@@ -1,9 +1,8 @@
 <script setup>
-    const active=ref(false)
-
-    const swicthActive = () =>{
-        active.value = !active.value 
-    }
+const active=ref(false)
+const swicthActive = () =>{
+    active.value = !active.value 
+}
 </script>
 
 <template>

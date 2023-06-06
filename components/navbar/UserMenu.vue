@@ -16,12 +16,7 @@
             <div @click="toggleOpen" class="p-4 md:py-1 md:px-2 border-[1px] border-neutral-200 flex flex-row items-center gap-3 rounded-full cursor-pointer hover:shadow-md transition text-gray-500">
                 <Bars3Icon class="h-5 w-5"/>
                 <div class="hidden md:block ">
-                    <!-- <Avatar :src='"profile.png"'/> -->
-                    <!-- <img src="~/assets/images/profile.png" alt="Avatar" class="rounded-full" height="30" width="30" v-if="displayPicture"> -->
                     <img :src="displayPicture" alt="Avatar" class="rounded-full" height="30" width="30">
-                    <!-- <img :src="displayPicture" alt="Avatar" class="rounded-full" height="30" width="30" v-else> -->
-                    <!-- <UserCircleIcon class="h-8 w-8" v-else/> -->
-                    <!-- <Avatar src="images/profile.png"/> -->
                 </div>
             </div>
         </div>

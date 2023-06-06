@@ -48,9 +48,7 @@ export default {
 .scroll-shadow {
     transition: box-shadow 0.2s ease-in-out;
 }
-
 .scroll-down {
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-    /* Sesuaikan dengan preferensi bayangan Anda */
 }
 </style>

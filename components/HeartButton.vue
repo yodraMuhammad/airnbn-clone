@@ -1,13 +1,9 @@
 <script setup>
-
 const hasFavorite = ref(false)
-
-
 const toggleFavorite = () => {
     hasFavorite.value = !hasFavorite.value
     console.log('change');
 }
-
 </script>
 
 <template>

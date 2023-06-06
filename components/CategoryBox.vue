@@ -1,6 +1,6 @@
 <script setup>
 const router = useRouter()
-
+const currentSlug = ref('all')
 const props = defineProps({
   label: String,
   icon: String,
@@ -12,13 +12,9 @@ const props = defineProps({
     mutable: true,
     }
 });
-
-const currentSlug = ref('all')
-
 if(router.currentRoute.value.params.slug){
     currentSlug.value = router.currentRoute.value.params.slug
 }
-
 const  go = (slug) => {
     if(slug == 'all'){
         router.push('/')
@@ -26,7 +22,6 @@ const  go = (slug) => {
         router.push('/category/'+slug)
     }
 }
-
 </script>
 
 <template>
@@ -53,7 +48,6 @@ const  go = (slug) => {
 </template>
 
 <style>
-
 .category{
     @apply border-b-[2px] border-transparent;  
 }
@@ -61,5 +55,4 @@ const  go = (slug) => {
 .active{
     @apply cursor-default border-black hover:cursor-default hover:border-black;
 }
-
 </style>
